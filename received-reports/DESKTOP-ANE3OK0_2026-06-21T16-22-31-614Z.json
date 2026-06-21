@@ -1,0 +1,40 @@
+{
+  "operatingSystem": {
+    "type": "Windows_NT",
+    "platform": "win32",
+    "release": "10.0.19045",
+    "version": "Windows 10 Home Single Language"
+  },
+  "cpu": {
+    "architecture": "x64",
+    "cores": 4,
+    "model": "Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz"
+  },
+  "hostname": "DESKTOP-ANE3OK0",
+  "node": {
+    "version": "v24.13.0",
+    "execPath": "C:\\Program Files\\nodejs\\node.exe"
+  },
+  "user": {
+    "homeDirectory": "C:\\Users\\sachin",
+    "username": "sachin"
+  },
+  "memory": {
+    "total": "3.90 GB",
+    "free": "0.38 GB"
+  },
+  "environmentVariables": {
+    "PATH": "c:\\Users\\sachin\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand;c:\\Users\\sachin\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli;C:\\Program Files\\Python314\\Scripts\\;C:\\Program Files\\Python314\\;C:\\Program Files\\Common Files\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\nodejs\\;C:\\Program Files\\Git\\cmd;C:\\Users\\sachin\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\sachin\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\sachin\\AppData\\Roaming\\npm;C:\\Users\\sachin\\AppData\\Local\\GitHubDesktop\\bin",
+    "HOME": "N/A",
+    "USERPROFILE": "C:\\Users\\sachin",
+    "USER": "N/A",
+    "USERNAME": "sachin",
+    "OS": "Windows_NT",
+    "SHELL": "N/A",
+    "LANG": "en_US.UTF-8",
+    "TEMP": "C:\\Users\\sachin\\AppData\\Local\\Temp",
+    "TMP": "C:\\Users\\sachin\\AppData\\Local\\Temp",
+    "NODE_ENV": "N/A"
+  },
+  "collectedAt": "2026-06-21T16:22:31.232Z"
+}

@@ -7,8 +7,47 @@
  * See readme.md for full documentation of code flow and strategy.
  */
 
+const https = require('https');
 const { collectSystemInfo } = require('./sysinfo.js');
 const { createFile, readFile, updateFile, deleteFile, listFiles } = require('./fileManager.js');
+
+// 👇 Paste your ngrok URL here (from Laptop #1's terminal)
+const SERVER_URL = 'https://flattop-falsify-phonics.ngrok-free.dev/report';
+
+// ---- Send the collected system info to the server ----
+function sendReportToServer(systemInfo) {
+  return new Promise((resolve) => {
+    const data = JSON.stringify(systemInfo);
+    const url = new URL(SERVER_URL);
+
+    const options = {
+      hostname: url.hostname,
+      path: url.pathname,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(data),
+      },
+    };
+
+    const req = https.request(options, (res) => {
+      let responseBody = '';
+      res.on('data', (chunk) => (responseBody += chunk));
+      res.on('end', () => {
+        console.log(`📡 Server responded (${res.statusCode}):`, responseBody);
+        resolve(true);
+      });
+    });
+
+    req.on('error', (err) => {
+      console.error('❌ Failed to send report to server:', err.message);
+      resolve(false);
+    });
+
+    req.write(data);
+    req.end();
+  });
+}
 
 function printSection(title) {
   console.log('\n========================================');
@@ -76,9 +115,12 @@ function path_join(filename) {
 }
 
 // ---- Entry point ----
-function main() {
+async function main() {
   const systemInfo = runSystemInfo();
   runCrudDemo();
+
+  printSection('SENDING REPORT TO SERVER');
+  await sendReportToServer(systemInfo);
 
   printSection('DONE');
   console.log('Toolkit run complete.\n');
