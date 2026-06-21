@@ -1,0 +1,10 @@
+# Generated output files
+report.json
+demo-sample.js
+
+# Node modules (if any are ever added)
+node_modules/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
