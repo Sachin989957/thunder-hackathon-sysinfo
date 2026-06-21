@@ -40,7 +40,17 @@ node toolkit.js
 ---
 
 ## 📁 Project Structure
+sysinfo/
 
+├── 📄 sysinfo.js       → System info collection (OS, CPU, memory, env vars, etc.)
+
+├── 🛠️ fileManager.js   → CRUD operations on files (Create, Read, Update, Delete, List)
+
+├── 🎯 toolkit.js        → Main entry point — collects info, runs CRUD demo, sends report
+
+├── 📡 server.js         → Receiver server — accepts reports over HTTP and saves them
+
+└── 📘 readme.md         → You are here
 ---
 
 ## 📊 What Gets Collected
@@ -91,6 +101,60 @@ Running `node toolkit.js` automatically:
 5. 📖 Reads it again to confirm the change
 6. 📋 Lists all files in the current directory
 7. 🗑️ Deletes the sample file (cleanup)
+
+---
+
+## 📡 Network Reporting — Send Info to a Remote Server
+
+Beyond local CRUD operations, this toolkit can **send the collected system
+report to a remote server over HTTP** — even across different networks —
+using a simple client-server setup.
+
+### How it works
+
+1. **`server.js`** runs on the "receiver" machine. It starts a lightweight
+   HTTP server (Node's built-in `http` module — no frameworks) that listens
+   for incoming `POST /report` requests and saves each one as a timestamped
+   JSON file inside `received-reports/`.
+
+2. **`toolkit.js`** runs on the "sender" machine. After collecting system
+   info and running the CRUD demo, it automatically sends the report to
+   the server's URL via an HTTPS POST request.
+
+3. **[ngrok](https://ngrok.com)** is used to expose the receiver's local
+   server to the public internet with a temporary HTTPS URL — so sender
+   and receiver don't need to be on the same WiFi/network.
+
+### Running it yourself
+
+**On the receiver machine:**
+```bash
+# Terminal 1 — start the server
+node server.js
+
+# Terminal 2 — expose it publicly via ngrok
+ngrok http 3000
+```
+Copy the `https://xxxx.ngrok-free.app` URL ngrok gives you.
+
+**On the sender machine**, paste that URL into the `SERVER_URL` constant
+near the top of `toolkit.js`, then run:
+```bash
+node toolkit.js
+```
+
+The receiver's terminal logs each incoming report, and a new file appears
+in `received-reports/` containing that machine's full system info —
+proving the report was successfully transmitted across networks.
+
+### Why this design
+
+- **No external HTTP libraries** — built using Node's native `http`/`https`
+  modules, keeping the project fully dependency-free.
+- **Fails safely** — if the server is unreachable, `toolkit.js` logs a
+  clear error (`❌ Failed to send report to server`) instead of crashing.
+- **Each report is timestamped and hostname-tagged**, so the receiver can
+  track which machine sent what, and when.
 
 ---
 
